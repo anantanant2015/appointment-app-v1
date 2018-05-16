@@ -1,0 +1,23 @@
+<div class="jumbotron">
+    <h2>Admin</h2>
+    <a href="<%@base%>/home">Home</a>
+    <a href="<%@base%>/logout">Logout</a>
+</div>
+
+<table class="table">
+    <tr>
+            <th><b>ID</b></th>
+            <th><b>NAME</b></th> 
+            <th><b>EMAIL</b></th>
+            <th><b>ROLE</b></th>
+    </tr>
+
+    <%= for user <- @users do %>
+        <tr>
+            <td><b><%= user.id %></b></td>
+            <td><b><%= user.name %></b></td>
+            <td><%= user.email %></td>
+            <td><%= user.role %></td>
+        </tr>        
+    <% end %>
+</table>
