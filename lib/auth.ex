@@ -41,9 +41,22 @@ end
 
 defmodule Appointment.AuthErrorHandler do
     import Plug.Conn
-  
+    
+    alias Plug.Conn
+    alias Appointment.User
+    alias Phoenix.Controller
+    @base "http://localhost:4000" 
+
+    
+
     def auth_error(conn, {type, reason}, _opts) do
       body = Poison.encode!(%{message: to_string(type)})
-      send_resp(conn, 401, body)
+      changeset = User.changeset(%User{}, %{})
+
+    #   send_resp(conn, 401, body)
+    conn
+        |> Plug.Conn.halt
+        |> Controller.put_flash(:error, to_string(type))
+        |> Controller.redirect(to: "/login")
     end
 end

@@ -4,6 +4,7 @@ defmodule Appointment.PageController do
   alias Appointment.User
   alias Appointment.Repo
 
+  plug Guardian.Plug.EnsureAuthenticated, [handler: Appointment.PageController, module: Appointment.Guardian, error_handler: Appointment.AuthErrorHandler]
 
   @base "http://localhost:4000"
 

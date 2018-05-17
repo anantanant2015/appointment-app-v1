@@ -4,6 +4,7 @@ defmodule Appointment.AdminController do
   alias Appointment.User
   alias Appointment.Repo
 
+  plug Appointment.EnsureAdmin, [handler: Appointment.AdminController, module: Appointment.Guardian, error_handler: Appointment.AuthErrorHandler]
 
   @base "http://localhost:4000"
 
