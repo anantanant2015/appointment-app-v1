@@ -7,6 +7,8 @@ defmodule Appointment.Router do
     plug :fetch_flash
     plug :protect_from_forgery
     plug :put_secure_browser_headers
+    plug Guardian.Plug.VerifySession, module: Appointment.Guardian, error_handler: Appointment.AuthErrorHandler
+    plug Guardian.Plug.LoadResource, allow_blank: true, module: Appointment.Guardian, error_handler: Appointment.AuthErrorHandler
   end
 
   pipeline :api do

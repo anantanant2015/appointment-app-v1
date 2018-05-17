@@ -14,7 +14,8 @@ defmodule Appointment.LoginController do
         case Auth.login(session_params, Repo) do
             {:ok, user} ->
                 conn
-                |> put_session(:current_user, user.id)
+                # |> put_session(:current_user, user.id)
+                |> Auth.guardian_sign_in(user)
                 |> put_flash(:info, "Logged in")
                 |> redirect(to: "/home")
             
@@ -28,7 +29,8 @@ defmodule Appointment.LoginController do
 
     def delete(conn, _params) do
         conn
-        |> delete_session(:current_user)
+        # |> delete_session(:current_user)
+        |> Auth.guardian_sign_out
         |> put_flash(:info, "Logged out!")
         |> redirect(to: "/login")
     end

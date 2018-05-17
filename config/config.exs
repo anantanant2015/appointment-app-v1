@@ -22,6 +22,19 @@ config :logger, :console,
   format: "$time $metadata[$level] $message\n",
   metadata: [:request_id]
 
+
+config :appointment, Appointment.Guardian,
+  issuer: "Appointment",
+  secret_key: "1udklsBAajImEQVDfU8s5mBgO+KKtug/urRC5j3Er5z2FGj5RxHAfM65tjszXYNU",
+  serializer: Appointment.GuardianSerializer,
+  allowed_algos: ["HS512"],
+  verify_module: Guardian.JWT,
+  verify_issuer: true
+
+config :appointment, Appointment.AuthAccessPipeline,
+  module: Appointment.Guardian,
+  error_handler: Appointment.AuthErrorHandler
+
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{Mix.env}.exs"
