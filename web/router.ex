@@ -26,6 +26,10 @@ defmodule Appointment.Router do
     delete "/logout", LoginController, :delete
     get "/admin", AdminController, :admin
     get "/", PageController, :index    
+
+    resources "/roles", RoleController
+    resources "/states", StateController
+    resources "/appointments", AppointmentController
   end
 
   # Other scopes may use custom stacks.
