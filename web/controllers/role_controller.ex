@@ -2,6 +2,7 @@ defmodule Appointment.RoleController do
   use Appointment.Web, :controller
 
   alias Appointment.Role
+  plug :load_resource, model: Appointment.User
 
   def index(conn, _params) do
     roles = Repo.all(Role)
@@ -26,6 +27,10 @@ defmodule Appointment.RoleController do
     end
   end
 
+  def get_all() do
+    Repo.all(Role)
+  end
+  
   def show(conn, %{"id" => id}) do
     role = Repo.get!(Role, id)
     render(conn, "show.html", role: role)

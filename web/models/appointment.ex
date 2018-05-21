@@ -3,7 +3,10 @@ defmodule Appointment.Appointment do
 
   schema "appointments" do
     field :description, :string
-
+    field :user_id, :string
+    field :state, :string
+    # belongs_to :user, Appointment.User
+    # belongs_to :state, Appointment.State
     timestamps()
   end
 

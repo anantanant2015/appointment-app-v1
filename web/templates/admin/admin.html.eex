@@ -18,6 +18,7 @@
             <td><b><%= user.name %></b></td>
             <td><%= user.email %></td>
             <td><%= user.role %></td>
+    </div>
         </tr>        
     <% end %>
 </table>

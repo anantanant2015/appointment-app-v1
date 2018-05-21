@@ -40,6 +40,8 @@ defmodule Appointment.Mixfile do
      {:comeonin, "~> 4.0"},
      {:argon2_elixir, "~> 1.2"},
      {:guardian, "~> 1.0"},
+     {:canary, "~> 1.1.1"},
+     {:canada, "~> 1.0.1"},
      {:cowboy, "~> 1.0"}]
   end
 

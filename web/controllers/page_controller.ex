@@ -1,10 +1,11 @@
 defmodule Appointment.PageController do
   use Appointment.Web, :controller
 
-  alias Appointment.User
-  alias Appointment.Repo
+  alias Appointment.{User, Repo, Appointment}
 
-  plug Guardian.Plug.EnsureAuthenticated, [handler: Appointment.PageController, module: Appointment.Guardian, error_handler: Appointment.AuthErrorHandler]
+  # plug :load_resource, model: User
+
+  # plug Guardian.Plug.EnsureAuthenticated, handler: Appointment.PageController, module: Appointment.Guardian, error_handler: Appointment.AuthErrorHandler
 
   @base "http://localhost:4000"
 
@@ -13,6 +14,7 @@ defmodule Appointment.PageController do
   end
 
   def home(conn, _params) do
-    render conn, "home.html", [base: @base]
+    # user_appointment = Repo.all(Appointment)
+    render conn, "home.html", [base: @base]#, user_appointment: user_appointment]
   end
 end

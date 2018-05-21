@@ -8,5 +8,6 @@ defmodule Appointment.Repo.Migrations.CreateState do
       timestamps()
     end
 
+    create unique_index(:states, [:name])
   end
 end

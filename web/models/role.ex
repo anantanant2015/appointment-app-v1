@@ -4,6 +4,8 @@ defmodule Appointment.Role do
   schema "roles" do
     field :kind, :string
 
+    # has_many :users, Appointment.User
+
     timestamps()
   end
 
@@ -15,4 +17,5 @@ defmodule Appointment.Role do
     |> cast(params, [:kind])
     |> validate_required([:kind])
   end
+  
 end

@@ -4,7 +4,7 @@ defmodule Appointment.Repo.Migrations.CreateUser do
   def change do
     create table(:users) do
       add :name, :string
-      add :email, :string, null: false
+      add :email, :string
       add :role, :string
       add :hashed_password, :string
       timestamps

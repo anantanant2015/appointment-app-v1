@@ -2,6 +2,7 @@ defmodule Appointment.AppointmentController do
   use Appointment.Web, :controller
 
   alias Appointment.Appointment
+  plug :load_resource, model: Appointment.User
 
   def index(conn, _params) do
     appointments = Repo.all(Appointment)
@@ -25,6 +26,8 @@ defmodule Appointment.AppointmentController do
         render(conn, "new.html", changeset: changeset)
     end
   end
+
+  
 
   def show(conn, %{"id" => id}) do
     appointment = Repo.get!(Appointment, id)

@@ -26,7 +26,8 @@
         <%= error_tag f, :password_confirmation %>
     </div>
     <div class="form-group">
-        <%= text_input f, :role, placeholder: "Role", class: "form-control" %>
+        <%= select f, :role, Enum.map(@role, &{&1.kind, &1.id}), class: "form-control", selected: 1, disabled: false %>
+        
         <%= error_tag f, :role %>
     </div>
     <%= submit "Register User", class: "btn btn-primary" %>

@@ -36,6 +36,8 @@ defmodule Appointment.Web do
 
       import Appointment.Router.Helpers
       import Appointment.Gettext
+      import Canary.Plugs
+      import Canada, only: [can?: 2]
     end
   end
 

@@ -3,7 +3,8 @@ defmodule Appointment.State do
 
   schema "states" do
     field :name, :string
-
+    
+    # has_many :appointments, Appointment.Appointment
     timestamps()
   end
 
