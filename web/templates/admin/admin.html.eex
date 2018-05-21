@@ -10,15 +10,15 @@
             <th><b>NAME</b></th> 
             <th><b>EMAIL</b></th>
             <th><b>ROLE</b></th>
+            <th class="text-right"><b>OPTIONS</b></th>
     </tr>
-
-    <%= for user <- @users do %>
+    <div>
         <tr>
-            <td><b><%= user.id %></b></td>
-            <td><b><%= user.name %></b></td>
-            <td><%= user.email %></td>
-            <td><%= user.role %></td>
+            <td><%= @user.id %></td>
+            <td><%= @user.name %></td>
+            <td><%= @user.email %></td>
+            <td><%= @user.role.kind %></td>
+            <td class="text-right"><%= link "Back", to: "/admin", class: "btn btn-default btn-xs" %></td>
+        </tr>
     </div>
-        </tr>        
-    <% end %>
 </table>

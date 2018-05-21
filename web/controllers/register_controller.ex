@@ -17,15 +17,16 @@ defmodule Appointment.RegisterController do
         # changeset = Ecto.build_assoc(role, :users, name: user_params["name"], email: user_params["email"], )
         # require IEx
         # IEx.pry
-        changeset = User.register_changeset(%User{}, user_params, role.kind)
+        changeset = User.register_changeset(%User{}, user_params, role.id)
         case Repo.insert(changeset) do
             {:ok, user} ->
                 conn
                 |> put_flash(:info, "#{user.name} created!")
-                |> redirect(to: admin_path(conn, :admin))
+                |> redirect(to: admin_path(conn, :show))
 
             {:error, changeset} ->
-                render conn, "register.html", [base: @base, changeset: changeset]
+                role = Repo.all(Role)
+                render conn, "register.html", [base: @base, changeset: changeset, role: role]
         end
     end
 end

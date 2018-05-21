@@ -40,7 +40,9 @@ CREATE TABLE public.appointments (
     id integer NOT NULL,
     description character varying(255),
     inserted_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    user_id integer,
+    state_id integer
 );
 
 
@@ -143,10 +145,10 @@ CREATE TABLE public.users (
     id integer NOT NULL,
     name character varying(255),
     email character varying(255),
-    role character varying(255),
     hashed_password character varying(255),
     inserted_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    role_id integer
 );
 
 
@@ -256,6 +258,30 @@ CREATE UNIQUE INDEX states_name_index ON public.states USING btree (name);
 --
 
 CREATE UNIQUE INDEX users_email_index ON public.users USING btree (email);
+
+
+--
+-- Name: appointments_state_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.appointments
+    ADD CONSTRAINT appointments_state_id_fkey FOREIGN KEY (state_id) REFERENCES public.states(id);
+
+
+--
+-- Name: appointments_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.appointments
+    ADD CONSTRAINT appointments_user_id_fkey FOREIGN KEY (user_id) REFERENCES public.users(id) ON DELETE CASCADE;
+
+
+--
+-- Name: users_role_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.users
+    ADD CONSTRAINT users_role_id_fkey FOREIGN KEY (role_id) REFERENCES public.roles(id);
 
 
 --

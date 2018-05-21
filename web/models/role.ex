@@ -4,7 +4,7 @@ defmodule Appointment.Role do
   schema "roles" do
     field :kind, :string
 
-    # has_many :users, Appointment.User
+    has_many :users, Appointment.User
 
     timestamps()
   end

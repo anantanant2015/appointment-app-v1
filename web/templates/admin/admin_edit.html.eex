@@ -1,0 +1,26 @@
+<div class="jumbotron">
+    <h2>Update</h2>
+    <a href="<%@base%>/home">Home</a>
+    <a href="<%@base%>/logout">Login</a>
+</div>
+<%= form_for @changeset, admin_path(@conn, :update, @user), fn f -> %>
+    <%= if @changeset.action do %>
+        <div class="alert alert-danger">
+            <p>Oops, something went wrong! Please check the errors below.</p>
+        </div>
+    <% end %>
+    <div class="form-group">
+        <%= text_input f, :name, placeholder: "Name", class: "form-control" %>
+        <%= error_tag f, :name %>
+    </div>
+    <div class="form-group">
+        <%= email_input f, :email, placeholder: "Email", class: "form-control" %>
+        <%= error_tag f, :email %>
+    </div>
+    <div class="form-group">
+        <%= select f, :role_id, [{"user", 1}, {"admin", 2}], class: "form-control", disabled: false %>
+        
+        <%= error_tag f, :role %>
+    </div>
+    <%= submit "Update User", class: "btn btn-primary" %>
+<% end %>

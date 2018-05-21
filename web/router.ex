@@ -33,15 +33,20 @@ defmodule Appointment.Router do
   get "/register/new", RegisterController, :new
   post "/login", LoginController, :create
   get "/home", PageController, :home
+  get "/admin/:id", AdminController, :show
+  get "/admin/:id/edit", AdminController, :edit
+  put "/admin/:id", AdminController, :update
+  delete "/admin/:id", AdminController, :delete
+  resources "/roles", RoleController
   
   get "/", PageController, :index    
   end
 
   scope "/", Appointment do
-    pipe_through [:browser, :browser_session, :require_login]
+    pipe_through [:browser]#, :browser_session, :require_login]
 
     
-    get "/admin", AdminController, :show
+    get "/admin", AdminController, :show_all
     delete "/logout", LoginController, :delete
     
     resources "/roles", RoleController

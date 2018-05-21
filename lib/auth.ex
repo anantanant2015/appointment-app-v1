@@ -1,7 +1,7 @@
 defmodule Appointment.Auth do
     alias Appointment.{Encryption, User}
 
-    def login(params, repo) do
+    def login(conn, params, repo) do
         user = repo.get_by(User, email: String.downcase(params["user"]["email"]))
         case authenticate(user, params["user"]["password"]) do
             true -> {:ok, user}
@@ -17,13 +17,14 @@ defmodule Appointment.Auth do
     end
 
     def current_user(conn) do
-        token = Appointment.Guardian.Plug.current_token(conn)
-        if token do
-            {:ok, resource, claims} = Appointment.Guardian.resource_from_token(token)
-            resource
-        else
-            nil
-        end
+        Plug.Conn.get_session(conn, :current_user)
+        # token = Appointment.Guardian.Plug.current_token(conn)
+        # if token do
+        #     {:ok, resource, claims} = Appointment.Guardian.resource_from_token(token)
+        #     resource
+        # else
+        #     nil
+        # end
         # id = Plug.Conn.get_session(conn, :current_user)
         # if id, do: Appointment.Repo.get(User, id)
     end

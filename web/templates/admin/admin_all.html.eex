@@ -1,0 +1,32 @@
+<div class="jumbotron">
+    <h2>Admin</h2>
+    <a href="<%@base%>/home">Home</a>
+    <a href="<%@base%>/logout">Logout</a>
+</div>
+
+<table class="table">
+    <tr>
+            <th><b>ID</b></th>
+            <th><b>NAME</b></th> 
+            <th><b>EMAIL</b></th>
+            <th><b>ROLE</b></th>
+            <th class="text-right"><b>OPTIONS</b></th>
+    </tr>
+    <%= if @users do %>
+        <%= for user <- @users do %>
+            <div>
+                <tr>
+                    <td><%= user.id %></td>
+                    <td><%= user.name %></td>
+                    <td><%= user.email %></td>
+                    <td><%= user.role.kind %></td>
+                    <td class="text-right">
+        <%= link "Show", to: admin_path(@conn, :show, user), class: "btn btn-default btn-xs" %>
+        <%= link "Edit", to: admin_path(@conn, :edit, user), class: "btn btn-default btn-xs" %>
+        <%= link "Delete", to: admin_path(@conn, :delete, user), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %>
+      </td>
+                </tr>
+            </div>
+        <% end %>
+    <% end %>
+</table>

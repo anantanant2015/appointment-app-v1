@@ -2,7 +2,7 @@ defmodule Appointment.RoleController do
   use Appointment.Web, :controller
 
   alias Appointment.Role
-  plug :load_resource, model: Appointment.User
+  # plug :load_resource, model: Appointment.User
 
   def index(conn, _params) do
     roles = Repo.all(Role)
