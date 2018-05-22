@@ -35,6 +35,7 @@
                         'Elixir.Appointment.User',
                         'Elixir.Appointment.UserController',
                         'Elixir.Appointment.UserSocket',
+                        'Elixir.Appointment.UserView',
                         'Elixir.Appointment.Web','Elixir.Canada.Can.User']},
               {registered,[]},
               {vsn,"0.0.1"},

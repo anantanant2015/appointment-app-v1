@@ -8,8 +8,7 @@ defmodule Appointment.AppointmentController do
     appointments = Repo.all(Appointment)
             |> Repo.preload(:user)
             |> Repo.preload(:state)
-    # require IEx
-    # IEx.pry
+
     render(conn, "index.html", appointments: appointments)
   end
 

@@ -14,7 +14,6 @@ defmodule Appointment.PageController do
   end
 
   def home(conn, _params) do
-    # user_appointment = Repo.all(Appointment)
-    render conn, "home.html", [base: @base]#, user_appointment: user_appointment]
+    render conn, "home.html", [base: @base]
   end
 end

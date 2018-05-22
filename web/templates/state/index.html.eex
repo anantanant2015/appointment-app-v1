@@ -1,3 +1,17 @@
+<div class="text-right">
+    <span class="badge badge-dark mr-2">Set user name here</span>
+    <%= link "Logout", to: login_path(@conn, :delete), method: :delete, class: "btn btn-secondary"%>        
+</div>
+
+<div class="jumbotron">
+    <h2>States</h2>
+    <%= link "Home", to: "/home", class: "btn btn-default btn-xs" %>
+    <%= link "Users", to: "/users", class: "btn btn-default btn-xs" %>
+    <%= link "Appointments", to: "/appointments", class: "btn btn-default btn-xs" %>
+    <%= link "Roles", to: "/roles", class: "btn btn-default btn-xs" %>
+    <%= link "States", to: "/states", class: "btn btn-default btn-xs" %>
+</div>
+
 <h2>Listing states</h2>
 
 <table class="table">
@@ -5,7 +19,7 @@
     <tr>
       <th>Name</th>
 
-      <th></th>
+      <th class="text-right"><b>OPTIONS</b></th>
     </tr>
   </thead>
   <tbody>

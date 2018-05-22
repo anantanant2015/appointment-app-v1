@@ -4,11 +4,15 @@
 </div>
 
 <div class="jumbotron">
-    <h2>Register</h2>
+    <h2>Users</h2>
     <%= link "Home", to: "/home", class: "btn btn-default btn-xs" %>
-    <%= link "Login", to: "/login", class: "btn btn-default btn-xs" %>
+    <%= link "Users", to: "/users", class: "btn btn-default btn-xs" %>
+    <%= link "Appointments", to: "/appointments", class: "btn btn-default btn-xs" %>
+    <%= link "Roles", to: "/roles", class: "btn btn-default btn-xs" %>
+    <%= link "States", to: "/states", class: "btn btn-default btn-xs" %>
 </div>
-<%= form_for @changeset, register_path(@conn, :register), fn f -> %>
+
+<%= form_for @changeset, admin_path(@conn, :update, @user), fn f -> %>
     <%= if @changeset.action do %>
         <div class="alert alert-danger">
             <p>Oops, something went wrong! Please check the errors below.</p>
@@ -23,17 +27,9 @@
         <%= error_tag f, :email %>
     </div>
     <div class="form-group">
-        <%= password_input f, :password, placeholder: "Password", class: "form-control" %>
-        <%= error_tag f, :password %>
-    </div>
-    <div class="form-group">
-        <%= password_input f, :password_confirmation, placeholder: "Confirm Password", class: "form-control" %>
-        <%= error_tag f, :password_confirmation %>
-    </div>
-    <div class="form-group">
-        <%= select f, :role, Enum.map(@role, &{&1.kind, &1.id}), class: "form-control", selected: 1, disabled: true %>
+        <%= select f, :role_id, Enum.map(@role, &{&1.kind, &1.id}), class: "form-control", disabled: false %>
         
         <%= error_tag f, :role %>
     </div>
-    <%= submit "Submit", class: "btn btn-primary" %>
+    <%= submit "Update User", class: "btn btn-primary" %>
 <% end %>

@@ -32,6 +32,12 @@ defmodule Appointment.Router do
   post "/register", RegisterController, :register
   get "/register/new", RegisterController, :new
   post "/login", LoginController, :create
+
+  get "/users", UserController, :index
+  get "/users/:id", UserController, :show
+  get "/users/:id/edit", UserController, :edit
+  put "/users/:id", UserController, :update
+
   
   get "/admin/:id", AdminController, :show
   get "/admin/:id/edit", AdminController, :edit
