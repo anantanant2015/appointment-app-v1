@@ -3,7 +3,11 @@
     <a href="<%@base%>/home">Home</a>
     <a href="<%@base%>/logout">Logout</a>
 </div>
-
+<div>
+    <%= link "States", to: "/states", class: "btn btn-default btn-xs" %>
+    <%= link "Roles", to: "/roles", class: "btn btn-default btn-xs" %>
+    <%= link "Appointments", to: "/appointments", class: "btn btn-default btn-xs" %>
+</div>
 <table class="table">
     <tr>
             <th><b>ID</b></th>

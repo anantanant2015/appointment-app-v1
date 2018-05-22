@@ -5,12 +5,16 @@
         <%= link "New appointment", to: appointment_path(@conn, :new) %>
         
     </div>
+    <div>
+        <%= link "States", to: "/states", class: "btn btn-default btn-xs" %>
+        <%= link "Roles", to: "/roles", class: "btn btn-default btn-xs" %>
+        <%= link "Appointments", to: "/appointments", class: "btn btn-default btn-xs" %>
+    </div>
     <div class="jumbotron">
         <h2><%= gettext "Welcome to %{name}", name: "Appointment App!" %></h2>
         <a href="<%@base%>/home">Home</a>
         <a href="<%@base%>/admin">Admin</a>
-    </div>
-    
+    </div>    
 <% else %>
     <div class="jumbotron">
         <h2><%= gettext "Welcome to %{name}", name: "Appointment App!" %></h2>

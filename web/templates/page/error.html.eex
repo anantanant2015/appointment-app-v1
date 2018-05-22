@@ -3,6 +3,11 @@
         <span class="badge badge-dark mr-2"><%= current_user(@conn).name %></span>
         <%= link "Logout", to: login_path(@conn, :delete), method: :delete, class: "btn btn-secondary"%>
     </div>
+    <div>
+        <%= link "States", to: "/states", class: "btn btn-default btn-xs" %>
+        <%= link "Roles", to: "/roles", class: "btn btn-default btn-xs" %>
+        <%= link "Appointments", to: "/appointments", class: "btn btn-default btn-xs" %>
+    </div>
     <div class="jumbotron">
         <h2><%= gettext "Welcome to %{name}", name: "Appointment App!" %></h2>
         <a href="<%@base%>/home">Home</a>
