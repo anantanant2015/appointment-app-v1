@@ -37,22 +37,33 @@ defmodule Appointment.Router do
   get "/admin/:id/edit", AdminController, :edit
   put "/admin/:id", AdminController, :update
   delete "/admin/:id", AdminController, :delete
+
+  get "/admin", AdminController, :show_all
+  delete "/logout", LoginController, :delete
+  get "/home", PageController, :home
+  resources "/roles", RoleController
+  resources "/states", StateController
+  get "/appointments/new/:user_id", AppointmentController, :new
+  get "/appointments/:id/edit", AppointmentController, :edit
+  get "/roles", RoleController, :index
+  resources "/appointments", AppointmentController
+
   resources "/roles", RoleController
   
   get "/", PageController, :index    
   end
 
-  scope "/", Appointment do
-    pipe_through [:browser], :browser_session, :require_login]
+  # scope "/", Appointment do
+  #   pipe_through [:browser]#, :browser_session, :require_login]
 
     
-    get "/admin", AdminController, :show_all
-    delete "/logout", LoginController, :delete
-    get "/home", PageController, :home
-    resources "/roles", RoleController
-    resources "/states", StateController
-    resources "/appointments", AppointmentController
-  end
+  #   get "/admin", AdminController, :show_all
+  #   delete "/logout", LoginController, :delete
+  #   get "/home", PageController, :home
+  #   resources "/roles", RoleController
+  #   resources "/states", StateController
+  #   resources "/appointments", AppointmentController
+  # end
 
   # Other scopes may use custom stacks.
   # scope "/api", Appointment do

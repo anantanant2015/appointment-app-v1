@@ -3,6 +3,9 @@
     <a href="<%@base%>/home">Home</a>
     <a href="<%@base%>/logout">Logout</a>
 </div>
+<div>
+    <%= link "New appointment", to: appointment_path(@conn, :new, @user.id) %>
+</div>
 
 <table class="table">
     <tr>

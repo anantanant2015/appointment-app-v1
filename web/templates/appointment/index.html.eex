@@ -3,14 +3,16 @@
 <table class="table">
   <thead>
     <tr>
-      <th>Description</th>
-
-      <th></th>
+            <th><b>USER ID</b></th>
+            <th><b>STATE</b></th> 
+            <th><b>DESCRIPTION</b></th>
     </tr>
   </thead>
   <tbody>
 <%= for appointment <- @appointments do %>
     <tr>
+      <td><%= appointment.user.name %></td>
+      <td><%= appointment.state.name %></td>
       <td><%= appointment.description %></td>
 
       <td class="text-right">
@@ -23,4 +25,4 @@
   </tbody>
 </table>
 
-<%= link "New appointment", to: appointment_path(@conn, :new) %>
+

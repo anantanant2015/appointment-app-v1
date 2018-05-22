@@ -6,6 +6,14 @@
     <strong>Description:</strong>
     <%= @appointment.description %>
   </li>
+  <li>
+    <strong>State:</strong>
+    <%= @appointment.state.name %>
+  </li>
+  <li>
+    <strong>User:</strong>
+    <%= @appointment.user.name %>
+  </li>
 
 </ul>
 
