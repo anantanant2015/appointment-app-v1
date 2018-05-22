@@ -21,55 +21,46 @@ defmodule Appointment.Router do
   end
 
   pipeline :require_login do
-    plug Guardian.Plug.EnsureAuthenticated, module: Appointment.Guardian, error_handler: Appointment.AuthErrorHandler
+    # plug Guardian.Plug.EnsureAuthenticated, module: Appointment.Guardian, error_handler: Appointment.AuthErrorHandler
     plug Appointment.Plug.CurrentUser, module: Appointment.Guardian, error_handler: Appointment.AuthErrorHandler
   end
 
   scope "/", Appointment do
   pipe_through [:browser]
 
+  get "/home", PageController, :home
   get "/login", LoginController, :new
   post "/register", RegisterController, :register
   get "/register/new", RegisterController, :new
   post "/login", LoginController, :create
-
-  get "/users", UserController, :index
-  get "/users/:id", UserController, :show
-  get "/users/:id/edit", UserController, :edit
-  put "/users/:id", UserController, :update
-
-  
-  get "/admin/:id", AdminController, :show
-  get "/admin/:id/edit", AdminController, :edit
-  put "/admin/:id", AdminController, :update
-  delete "/admin/:id", AdminController, :delete
-
-  get "/admin", AdminController, :show_all
-  delete "/logout", LoginController, :delete
-  get "/home", PageController, :home
-  resources "/roles", RoleController
-  resources "/states", StateController
-  get "/appointments/new/:user_id", AppointmentController, :new
-  get "/appointments/:id/edit", AppointmentController, :edit
-  get "/roles", RoleController, :index
-  resources "/appointments", AppointmentController
-
-  resources "/roles", RoleController
   
   get "/", PageController, :index    
   end
 
-  # scope "/", Appointment do
-  #   pipe_through [:browser]#, :browser_session, :require_login]
+  scope "/", Appointment do
+    pipe_through [:browser]#, :browser_session, :require_login]
 
-    
-  #   get "/admin", AdminController, :show_all
-  #   delete "/logout", LoginController, :delete
-  #   get "/home", PageController, :home
-  #   resources "/roles", RoleController
-  #   resources "/states", StateController
-  #   resources "/appointments", AppointmentController
-  # end
+    get "/users", UserController, :index
+    get "/users/:id", UserController, :show
+    get "/users/:id/edit", UserController, :edit
+    put "/users/:id", UserController, :update
+
+    get "/admin/:id", AdminController, :show
+    get "/admin/:id/edit", AdminController, :edit
+    put "/admin/:id", AdminController, :update
+    delete "/admin/:id", AdminController, :delete
+    get "/admin", AdminController, :show_all
+    delete "/logout", LoginController, :delete
+
+
+    get "/appointments/new/:user_id", AppointmentController, :new
+    get "/appointments/:id/edit", AppointmentController, :edit
+    get "/roles", RoleController, :index
+
+    resources "/roles", RoleController
+    resources "/states", StateController
+    resources "/appointments", AppointmentController
+  end
 
   # Other scopes may use custom stacks.
   # scope "/api", Appointment do

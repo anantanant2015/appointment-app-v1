@@ -60,6 +60,20 @@ defmodule Appointment.AuthErrorHandler do
         |> Controller.put_flash(:error, to_string(type))
         |> Controller.redirect(to: "/login")
     end
+
+    def handle_unauthorized(conn) do
+        conn
+        |> Controller.put_flash(:error, "You can't access that page!")
+        |> Controller.redirect(to: "/home")
+        |> Plug.Conn.halt
+    end
+
+    def handle_not_found(conn) do
+        conn
+        |> Controller.put_flash(:error, "Handle not found!")
+        |> Controller.redirect(to: "/home")
+        |> Plug.Conn.halt
+    end
 end
 
 defmodule Appointment.Plug.CurrentUser do

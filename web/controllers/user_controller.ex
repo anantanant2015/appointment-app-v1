@@ -4,12 +4,14 @@ defmodule Appointment.UserController do
   alias Appointment.{User, Role}
   alias Appointment.Repo
 
-  # plug :load_resource, model: Appointment.User#, only: :show
+  plug :load_and_authorize_resource, model: Appointment.User#, only: :show
   # plug Appointment.EnsureAdmin, [handler: Appointment.AdminController, module: Appointment.Guardian, error_handler: Appointment.AuthErrorHandler]
 
   @base "http://localhost:4000"
 
-  def index(conn, _params) do
+  def index(conn, params) do
+    IO.inspect(conn)
+    IO.inspect(params)
     users = Repo.all(User)
             |> Repo.preload(:role)
     

@@ -37,6 +37,12 @@ config :appointment, Appointment.AuthAccessPipeline,
 
 config :canary, repo: Appointment.Repo
 
+config :canary, current_user: :user
+
+config :canary, unauthorized_handler: {Appointment.AuthErrorHandler, :handle_unauthorized}
+
+config :canary, not_found_handler: {Appointment.AuthErrorHandler, :handle_not_found}
+
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{Mix.env}.exs"

@@ -16,9 +16,10 @@ defmodule Appointment.LoginController do
                 conn
                 # |> put_session(:current_user, user.id)
                 # |> Auth.guardian_sign_in(user)
-                |> Plug.Conn.assign(:current_user, user)
+                |> Map.put(:params, %{"id" => user.id})
+                |> IO.inspect
                 |> put_flash(:info, "Logged in")
-                |> redirect(to: "/home")
+                |> redirect(to: "/users/#{user.id}")
             
             :error ->
                 conn
