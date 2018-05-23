@@ -2,7 +2,7 @@ defmodule Appointment.StateController do
   use Appointment.Web, :controller
 
   alias Appointment.State
-  plug :load_and_authorize_resource, model: Appointment.User
+  plug :authorize_resource, model: State
 
   def index(conn, _params) do
     states = Repo.all(State)

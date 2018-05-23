@@ -2,7 +2,8 @@ defmodule Appointment.AppointmentController do
   use Appointment.Web, :controller
 
   alias Appointment.{Appointment, User, State}
-  plug :load_and_authorize_resource, model: Appointment
+
+  plug :authorize_resource, model: Appointment, only: [:index, :edit, :update, :delete]
 
   def index(conn, _params) do
     appointments = Repo.all(Appointment)

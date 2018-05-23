@@ -4,24 +4,23 @@ defmodule Appointment.UserController do
   alias Appointment.{User, Role}
   alias Appointment.Repo
 
-  plug :load_and_authorize_resource, model: Appointment.User#, only: :show
-  # plug Appointment.EnsureAdmin, [handler: Appointment.AdminController, module: Appointment.Guardian, error_handler: Appointment.AuthErrorHandler]
+  plug :load_and_authorize_resource, model: User, only: :show
+  
+  plug :authorize_resource, model: User, only: [:show, :index, :edit, :update, :delete]
 
-  @base "http://localhost:4000"
+  
 
   def index(conn, params) do
-    IO.inspect(conn)
-    IO.inspect(params)
     users = Repo.all(User)
             |> Repo.preload(:role)
     
-    render conn, "index.html", base: @base, users: users
+    render conn, "index.html", users: users
   end
 
   def show(conn, %{"id" => id}) do
     user = Repo.get(User, id)
             |> Repo.preload(:role)
-    render conn, "user.html", base: @base, user: user
+    render conn, "user.html", user: user
   end
 
   def edit(conn, %{"id" => id}) do
@@ -30,7 +29,7 @@ defmodule Appointment.UserController do
     changeset = User.changeset(user, %{})
     role = Repo.all(Role)
 
-    render conn, "user_edit.html", [base: @base, user: user, changeset: changeset, role: role]
+    render conn, "user_edit.html", [user: user, changeset: changeset, role: role]
     
   end
 
@@ -42,15 +41,15 @@ defmodule Appointment.UserController do
       {:ok, user} ->
         conn
             |> put_flash(:info, "User updated successfully.")
-            |> redirect(to: "/admin")
+            |> redirect(to: "/users/#{id}")
             
       {:error, changeset} ->
-        render(conn, "user_edit.html", base: @base)
+        render(conn, "user_edit.html")
     end
   end
 
-  def delete(conn, %{"id" => id}) do
-    user = Repo.get!(User, id)
+  def delete(conn, %{"user_id" => user_id}) do
+    user = Repo.get!(User, user_id)
 
     Repo.delete!(user)
 

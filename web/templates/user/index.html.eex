@@ -1,5 +1,5 @@
 <div class="text-right">
-    <span class="badge badge-dark mr-2">Set user name here</span>
+    <span class="badge badge-dark mr-2"><%= @conn.private.plug_session["user"].name %></span>
     <%= link "Logout", to: login_path(@conn, :delete), method: :delete, class: "btn btn-secondary"%>        
 </div>
 
@@ -29,9 +29,9 @@
                     <td><%= user.email %></td>
                     <td><%= user.role.kind %></td>
                     <td class="text-right">
-        <%= link "Show", to: admin_path(@conn, :show, user), class: "btn btn-default btn-xs" %>
-        <%= link "Edit", to: admin_path(@conn, :edit, user), class: "btn btn-default btn-xs" %>
-        <%= link "Delete", to: admin_path(@conn, :delete, user), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %>
+        <%= link "Show", to: user_path(@conn, :show, user), class: "btn btn-default btn-xs" %>
+        <%= link "Edit", to: user_path(@conn, :edit, user), class: "btn btn-default btn-xs" %>
+        <%= link "Delete", to: user_path(@conn, :delete, user), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %>
       </td>
                 </tr>
             </div>

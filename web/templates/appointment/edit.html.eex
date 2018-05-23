@@ -1,5 +1,5 @@
 
-<%= render "form.html", changeset: @changeset, user: @user, states: @states,
+<%= render "form.html", changeset: @changeset, user: @user, states: @states, conn: @conn,
                         action: appointment_path(@conn, :update, @appointment) %>
 
 <%= link "Back", to: appointment_path(@conn, :index) %>

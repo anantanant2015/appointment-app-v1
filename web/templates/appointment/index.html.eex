@@ -1,6 +1,11 @@
 <div class="text-right">
-    <span class="badge badge-dark mr-2">Set user name here</span>
-    <%= link "Logout", to: login_path(@conn, :delete), method: :delete, class: "btn btn-secondary"%>        
+    <%= if Map.get(@conn.private.plug_session, "user") && Map.get(@conn.assigns, :authorized) do %>
+        <span class="badge badge-dark mr-2"><%= @conn.private.plug_session["user"].name %></span>
+        <%= link "Logout", to: login_path(@conn, :delete), method: :delete, class: "btn btn-secondary"%>  
+    <% else %>
+        <%= link "Login", to: "/login", class: "btn btn-default btn-xs" %>
+        <%= link "Register", to: "/register/new", class: "btn btn-default btn-xs" %>      
+    <% end %>
 </div>
 
 <div class="jumbotron">
@@ -11,8 +16,6 @@
     <%= link "Roles", to: "/roles", class: "btn btn-default btn-xs" %>
     <%= link "States", to: "/states", class: "btn btn-default btn-xs" %>
 </div>
-
-<h2>Listing appointments</h2>
 
 <table class="table">
   <thead>

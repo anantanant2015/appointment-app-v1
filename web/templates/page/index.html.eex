@@ -1,7 +1,11 @@
-<div class="jumbotron">
-  <h2><%= gettext "Welcome to %{name}", name: "Phoenix!" %></h2>
-  <a href="<%@base%>/home">Appointment Home</a>
-  <p class="lead">A productive web framework that<br />does not compromise speed and maintainability.</p>
+<div class="text-right">
+    <%= if Map.get(@conn.private.plug_session, "user") && Map.get(@conn.assigns, :authorized) do %>
+        <span class="badge badge-dark mr-2"><%= @conn.private.plug_session["user"].name %></span>
+        <%= link "Logout", to: login_path(@conn, :delete), method: :delete, class: "btn btn-secondary"%>  
+    <% else %>
+        <%= link "Login", to: "/login", class: "btn btn-default btn-xs" %>
+        <%= link "Register", to: "/register/new", class: "btn btn-default btn-xs" %>      
+    <% end %>
 </div>
 
 <div class="row marketing">

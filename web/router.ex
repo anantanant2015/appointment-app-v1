@@ -7,8 +7,6 @@ defmodule Appointment.Router do
     plug :fetch_flash
     plug :protect_from_forgery
     plug :put_secure_browser_headers
-    # plug Guardian.Plug.VerifySession, module: Appointment.Guardian, error_handler: Appointment.AuthErrorHandler
-    # plug Guardian.Plug.LoadResource, allow_blank: true, module: Appointment.Guardian, error_handler: Appointment.AuthErrorHandler
   end
 
   pipeline :api do
@@ -21,8 +19,7 @@ defmodule Appointment.Router do
   end
 
   pipeline :require_login do
-    # plug Guardian.Plug.EnsureAuthenticated, module: Appointment.Guardian, error_handler: Appointment.AuthErrorHandler
-    plug Appointment.Plug.CurrentUser, module: Appointment.Guardian, error_handler: Appointment.AuthErrorHandler
+    plug Appointment.Plug.SessionUpdate, error_handler: Appointment.AuthErrorHandler
   end
 
   scope "/", Appointment do
@@ -38,18 +35,14 @@ defmodule Appointment.Router do
   end
 
   scope "/", Appointment do
-    pipe_through [:browser]#, :browser_session, :require_login]
+    pipe_through [:browser, :require_login]
 
     get "/users", UserController, :index
     get "/users/:id", UserController, :show
     get "/users/:id/edit", UserController, :edit
     put "/users/:id", UserController, :update
+    delete "/users/:user_id", UserController, :delete
 
-    get "/admin/:id", AdminController, :show
-    get "/admin/:id/edit", AdminController, :edit
-    put "/admin/:id", AdminController, :update
-    delete "/admin/:id", AdminController, :delete
-    get "/admin", AdminController, :show_all
     delete "/logout", LoginController, :delete
 
 

@@ -18,15 +18,6 @@ defmodule Appointment.Auth do
 
     def current_user(conn) do
         Plug.Conn.get_session(conn, :current_user)
-        # token = Appointment.Guardian.Plug.current_token(conn)
-        # if token do
-        #     {:ok, resource, claims} = Appointment.Guardian.resource_from_token(token)
-        #     resource
-        # else
-        #     nil
-        # end
-        # id = Plug.Conn.get_session(conn, :current_user)
-        # if id, do: Appointment.Repo.get(User, id)
     end
 
     def logged_in?(conn), do: !!current_user(conn)
@@ -46,7 +37,6 @@ defmodule Appointment.AuthErrorHandler do
     alias Plug.Conn
     alias Appointment.User
     alias Phoenix.Controller
-    @base "http://localhost:4000" 
 
     
 
@@ -82,5 +72,35 @@ defmodule Appointment.Plug.CurrentUser do
   def call(conn, _opts) do
     current_user = Guardian.Plug.current_resource(conn)
     Plug.Conn.assign(conn, :current_user, current_user)
+  end
+end
+
+defmodule Appointment.Plug.SessionUpdate do
+
+  def init(opts), do: opts
+
+  def call(conn, _opts) do
+    user_id = (Map.get(conn, :private) |> Map.get(:plug_session) |> Map.get("user_id"))
+    if user_id do
+    user =  Appointment.Repo.get(Appointment.User, user_id)
+            |> Appointment.Repo.preload(:role)
+    conn
+    |> Plug.Conn.put_session(:user, user)
+    |> Plug.Conn.assign(:user, user)
+    else
+        Appointment.AuthErrorHandler.handle_unauthorized(conn)
+    end
+  end
+end
+
+defmodule Appointment.Plug.SessionLoad do
+
+  def init(opts), do: opts
+
+  def call(conn, _opts) do
+    user = Plug.Conn.get_session(conn, :user)
+
+    conn    
+    |> Plug.Conn.assign(:user, user)
   end
 end
