@@ -5,11 +5,16 @@
 
 <div class="jumbotron">
     <h2>Users</h2>
-    <%= link "Home", to: "/home", class: "btn btn-default btn-xs" %>
-    <%= link "Users", to: "/users", class: "btn btn-default btn-xs" %>
-    <%= link "Appointments", to: "/appointments", class: "btn btn-default btn-xs" %>
-    <%= link "Roles", to: "/roles", class: "btn btn-default btn-xs" %>
-    <%= link "States", to: "/states", class: "btn btn-default btn-xs" %>
+    <%= link "Home", to: "/users/#{@user.id}", class: "btn btn-default btn-xs"%>
+    <%= if validate(@conn) do %>
+        <%= link "Users", to: "/users", class: "btn btn-default btn-xs"%>
+        <%= link "Appointments", to: "/appointments", class: "btn btn-default btn-xs" %>
+        <%= link "Roles", to: "/roles", class: "btn btn-default btn-xs" %>
+        <%= link "States", to: "/states", class: "btn btn-default btn-xs" %>
+    <%= else %>
+        <%= link "Users", to: "/users/#{@user.id}", class: "btn btn-default btn-xs"%>
+        <%= link "Appointments", to: "/appointments/#{@user.id}", class: "btn btn-default btn-xs" %>
+    <%= end %>    
 </div>
 
 <table class="table">
@@ -30,6 +35,7 @@
                     <td><%= user.role.kind %></td>
                     <td class="text-right">
         <%= link "Show", to: user_path(@conn, :show, user), class: "btn btn-default btn-xs" %>
+        
         <%= link "Edit", to: user_path(@conn, :edit, user), class: "btn btn-default btn-xs" %>
         <%= link "Delete", to: user_path(@conn, :delete, user), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %>
       </td>

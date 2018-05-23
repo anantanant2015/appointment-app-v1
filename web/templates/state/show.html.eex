@@ -9,18 +9,27 @@
 </div>
 
 <div class="jumbotron">
-    <h2>States</h2>
-    <%= link "Home", to: "/home", class: "btn btn-default btn-xs" %>
-    <%= link "Users", to: "/users", class: "btn btn-default btn-xs" %>
-    <%= link "Appointments", to: "/appointments", class: "btn btn-default btn-xs" %>
-    <%= link "Roles", to: "/roles", class: "btn btn-default btn-xs" %>
-    <%= link "States", to: "/states", class: "btn btn-default btn-xs" %>
+    <h2>Users</h2>
+    <%= link "Home", to: "/users/#{@user.id}", class: "btn btn-default btn-xs"%>
+    <%= if validate(@conn) do %>
+        <%= link "Users", to: "/users", class: "btn btn-default btn-xs"%>
+        <%= link "Appointments", to: "/appointments", class: "btn btn-default btn-xs" %>
+        <%= link "Roles", to: "/roles", class: "btn btn-default btn-xs" %>
+        <%= link "States", to: "/states", class: "btn btn-default btn-xs" %>
+    <%= else %>
+        <%= link "Users", to: "/users/#{@user.id}", class: "btn btn-default btn-xs"%>
+        <%= link "Appointments", to: "/appointments/#{@user.id}", class: "btn btn-default btn-xs" %>
+    <%= end %>    
 </div>
 
 <h2>Show state</h2>
 
 <ul>
 
+  <li>
+    <strong>ID:</strong>
+    <%= @state.id %>
+  </li>
   <li>
     <strong>Name:</strong>
     <%= @state.name %>

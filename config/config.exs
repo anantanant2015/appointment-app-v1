@@ -43,6 +43,10 @@ config :canary, unauthorized_handler: {Appointment.AuthErrorHandler, :handle_una
 
 config :canary, not_found_handler: {Appointment.AuthErrorHandler, :handle_not_found}
 
+config :seedex,
+  repo: Appointment.Repo,
+  seeds_path: "priv/repo/seeds"
+
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{Mix.env}.exs"

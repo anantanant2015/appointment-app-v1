@@ -10,8 +10,4 @@
 <div class="jumbotron">
     <h2>Home</h2>
     <%= link "Home", to: "/home", class: "btn btn-default btn-xs" %>
-    <%= link "Users", to: "/users", class: "btn btn-default btn-xs" %>
-    <%= link "Appointments", to: "/appointments", class: "btn btn-default btn-xs" %>
-    <%= link "Roles", to: "/roles", class: "btn btn-default btn-xs" %>
-    <%= link "States", to: "/states", class: "btn btn-default btn-xs" %>
 </div>  

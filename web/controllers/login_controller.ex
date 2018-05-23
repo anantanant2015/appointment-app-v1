@@ -30,7 +30,6 @@ defmodule Appointment.LoginController do
         conn
         |> delete_session(:user_id)
         |> clear_session
-        |> put_session(:user_id, nil)
         |> put_flash(:info, "Logged out!")
         |> redirect(to: "/login")
     end

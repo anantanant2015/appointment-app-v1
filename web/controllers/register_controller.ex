@@ -15,6 +15,7 @@ defmodule Appointment.RegisterController do
         role = Repo.get(Role, String.to_integer(user_params["role"]))
         
         changeset = User.register_changeset(%User{}, user_params, role.id)
+
         case Repo.insert(changeset) do
             {:ok, user} ->
                 conn

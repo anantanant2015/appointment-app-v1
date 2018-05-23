@@ -56,11 +56,11 @@ defimpl Canada.Can, for: Appointment.User do
     true
   end
 
-  def can?(u, _action, a) do
-    require IEx
-    IEx.pry
+  def can?(_, _action, _) do
     false
   end
+  
+  # def can?(_, _action, _) do
 
   # def can?(%User{role_id: 2}, action, User)
   #   when action in [:index], do: true

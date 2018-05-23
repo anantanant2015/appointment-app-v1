@@ -1,6 +1,6 @@
 
 <div class="text-right">
-    <%= if Map.get(@conn.private.plug_session, "user") && Map.get(@conn.assigns, :authorized) && Map.get(@conn.assigns, :authorized) do %>
+    <%= if Map.get(@conn.private.plug_session, "user") && Map.get(@conn.assigns, :authorized) do %>
         <span class="badge badge-dark mr-2"><%= @conn.private.plug_session["user"].name %></span>
         <%= link "Logout", to: login_path(@conn, :delete), method: :delete, class: "btn btn-secondary"%>  
     <% else %>
@@ -9,11 +9,7 @@
     <% end %>
 </div>
 <div class="jumbotron">
-    <h2>Home</h2>
-    <%= link "Home", to: "/home", class: "btn btn-default btn-xs" %>
-    <%= link "Users", to: "/users", class: "btn btn-default btn-xs" %>
-    <%= link "Appointments", to: "/appointments", class: "btn btn-default btn-xs" %>
-    <%= link "Roles", to: "/roles", class: "btn btn-default btn-xs" %>
-    <%= link "States", to: "/states", class: "btn btn-default btn-xs" %>
-</div>   
+    <h2>Users</h2>
+    <%= link "Home", to: "/home", class: "btn btn-default btn-xs" %>    
+</div>  
 

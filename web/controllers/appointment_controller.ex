@@ -3,7 +3,7 @@ defmodule Appointment.AppointmentController do
 
   alias Appointment.{Appointment, User, State}
 
-  plug :authorize_resource, model: Appointment, only: [:index, :edit, :update, :delete]
+  plug :authorize_resource, model: Appointment, only: [:show, :index, :edit, :update, :delete]
 
   def index(conn, _params) do
     appointments = Repo.all(Appointment)
@@ -11,6 +11,19 @@ defmodule Appointment.AppointmentController do
             |> Repo.preload(:state)
 
     render(conn, "index.html", appointments: appointments)
+  end
+
+  def index_user(conn, user) do
+    user_id = String.to_integer(user["user_id"])
+    user = Repo.get(User, user_id)
+            # |> Repo.preload(:role)
+    query = Appointment |> where(user_id: ^user_id)
+    appointments = Repo.all(query)
+            |> Repo.preload(:user)
+            |> Repo.preload(:state)
+    
+
+    render(conn, "index_user.html", appointments: appointments, user_id: user_id)
   end
 
   def new(conn, %{"user_id" => user_id}) do
@@ -26,15 +39,16 @@ defmodule Appointment.AppointmentController do
 
   def create(conn, %{"appointment" => appointment_params}) do
     changeset = Appointment.changeset_new(%Appointment{}, appointment_params)
+    
     states = Repo.all(State)
-    user = Repo.get(User, 5)
+    user = Repo.get(User, String.to_integer(appointment_params["user_id"]))
             |> Repo.preload(:role)
 
     case Repo.insert(changeset) do
-      {:ok, _appointment} ->
+      {:ok, appointment} ->
         conn
         |> put_flash(:info, "Appointment created successfully.")
-        |> redirect(to: appointment_path(conn, :index))
+        |> redirect(to: "/appointments/#{user.id}")
       {:error, changeset} ->
         render(conn, "new.html", [changeset: changeset, user: user, states: states])
     end

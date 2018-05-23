@@ -1,0 +1,52 @@
+<div class="text-right">
+    <%= if Map.get(@conn.private.plug_session, "user") && Map.get(@conn.assigns, :authorized) do %>
+        <span class="badge badge-dark mr-2"><%= @conn.private.plug_session["user"].name %></span>
+        <%= link "Logout", to: login_path(@conn, :delete), method: :delete, class: "btn btn-secondary"%>  
+    <% else %>
+        <%= link "Login", to: "/login", class: "btn btn-default btn-xs" %>
+        <%= link "Register", to: "/register/new", class: "btn btn-default btn-xs" %>      
+    <% end %>
+</div>
+
+<div class="jumbotron">
+    <h2>Users</h2>
+    <%= link "Home", to: "/users/#{@user_id}", class: "btn btn-default btn-xs"%>
+    <%= if validate(@conn) do %>
+        <%= link "Users", to: "/users", class: "btn btn-default btn-xs"%>
+        <%= link "Appointments", to: "/appointments", class: "btn btn-default btn-xs" %>
+        <%= link "Roles", to: "/roles", class: "btn btn-default btn-xs" %>
+        <%= link "States", to: "/states", class: "btn btn-default btn-xs" %>
+    <%= else %>
+        <%= link "Users", to: "/users/#{@user_id}", class: "btn btn-default btn-xs"%>
+        <%= link "Appointments", to: "/appointments/#{@user_id}", class: "btn btn-default btn-xs" %>
+    <%= end %>    
+</div>
+
+<table class="table">
+  <thead>
+    <tr>
+            <th><b>USER ID</b></th>
+            <th><b>STATE</b></th> 
+            <th><b>DESCRIPTION</b></th>
+            <th class="text-right"><b>OPTIONS</b></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for appointment <- @appointments do %>
+    <tr>
+      <td><%= appointment.user.name %></td>
+      <td><%= appointment.state.name %></td>
+      <td><%= appointment.description %></td>
+
+      <td class="text-right">
+        <%= link "Show", to: "/appointments/#{appointment.id}", class: "btn btn-default btn-xs" %>
+        <%= link "Edit", to: "/appointments/#{appointment.id}/edit", class: "btn btn-default btn-xs" %>
+        <%= link "Delete", to: appointment_path(@conn, :delete, appointment), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+
+

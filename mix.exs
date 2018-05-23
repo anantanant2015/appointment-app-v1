@@ -42,6 +42,7 @@ defmodule Appointment.Mixfile do
      {:guardian, "~> 1.0"},
      {:canary, "~> 1.1.1"},
      {:canada, "~> 1.0.1"},
+     {:seedex, "~> 0.1.2"},
      {:cowboy, "~> 1.0"}]
   end
 

@@ -9,8 +9,7 @@
 </div>
 <div class="jumbotron">
     <h2>Login</h2>
-    <%= link "Home", to: "/home", class: "btn btn-default btn-xs" %>
-    <%= link "Register", to: "/register/new", class: "btn btn-default btn-xs" %>
+    <%= link "Home", to: "/home", class: "btn btn-default btn-xs"%>
 </div>
 <%= form_for @changeset, login_path(@conn, :create), [name: :login], fn f -> %>
     <%= if @changeset.action do %>
